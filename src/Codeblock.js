@@ -14,7 +14,7 @@ Codeblock.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     loader: PropTypes.func,
-    syntax: PropTypes.oneOf(Object.keys(syntaxLoaders)),
+    language: PropTypes.oneOf(Object.keys(syntaxLoaders)),
     theme: PropTypes.oneOf(Object.keys(themeLoaders)),
     component: PropTypes.string,
     innerComponent: PropTypes.string,
@@ -43,15 +43,7 @@ export default function Codeblock({
     usePrism(ref);
 
     return (
-        <Outer
-            {...props}
-            ref={ref}
-            className={cx(
-                'Codeblock',
-                { [`language-${language}`]: language },
-                className
-            )}
-        >
+        <Outer {...props} ref={ref} className={cx('Codeblock', { [`language-${language}`]: language }, className)}>
             <Inner children={content} />
         </Outer>
     );

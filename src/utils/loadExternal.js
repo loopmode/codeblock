@@ -6,11 +6,7 @@ const { AbortController } = window;
  * @param {*} successCallback a callback function to invoke in case of success. Receives the result text.
  * @param {*} errorCallback a callback function to invoke in case of error. Receives the error object.
  */
-export default async function loadExternal(
-    url,
-    successCallback,
-    errorCallback
-) {
+export default async function loadExternal(url, successCallback, errorCallback) {
     const controller = new AbortController();
 
     try {
@@ -21,8 +17,8 @@ export default async function loadExternal(
 
         successCallback(await response.text());
     } catch (error) {
-        console.warn('[loadExternal] failed', { err });
-        errorCallback(err);
+        console.warn('[loadExternal] failed', { error });
+        errorCallback(error);
     }
 
     return () => controller.abort();

@@ -1,0 +1,31 @@
+---
+name: Codeblock
+order: 1
+---
+
+# Codeblock
+
+import { Props, Playground } from 'docz';
+import Codeblock from './Codeblock';
+
+<Props of={Codeblock} />
+
+## Example
+
+<Playground>
+    <Codeblock
+        src={
+            'https://raw.githubusercontent.com/loopmode/react-nipple/master/packages/react-nipple/src/DebugView.js'
+        }
+        language="jsx"
+    />
+</Playground>
+
+<Playground>
+    <Codeblock
+        src={
+            'https://raw.githubusercontent.com/PyGithub/PyGithub/master/scripts/add_attribute.py'
+        }
+        language="python"
+    />
+</Playground>
