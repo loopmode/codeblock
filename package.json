@@ -4,6 +4,10 @@
     "main": "lib/index.js",
     "license": "MIT",
     "author": "Jovica Aleksic <jovica.aleksic@loopmode.de>",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/loopmode/codeblock"
+    },
     "scripts": {
         "start": "docz dev",
         "docz:build": "docz build",
