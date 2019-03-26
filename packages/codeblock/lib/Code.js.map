@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/Code.js"],"names":["props"],"mappings":";;;;;;;AAAA;;AACA;;;;;;eAEe,kBAAAA,KAAK;AAAA,SAAI,6BAAC,kBAAD,eAAeA,KAAf;AAAsB,IAAA,MAAM;AAA5B,KAAJ;AAAA,C","sourcesContent":["import React from 'react';\nimport Codeblock from './Codeblock';\n\nexport default props => <Codeblock {...props} inline />;\n"],"file":"Code.js"}

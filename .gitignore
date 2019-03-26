@@ -1,4 +1,4 @@
-/.docz
-/lib/report.html
-/*.log
-/node_modules
+.docz
+lib/report.html
+*.log
+node_modules

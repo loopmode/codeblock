@@ -1,8 +1,0 @@
-{
-  "extends": "@loopmode/react",
-  "settings": {
-      "react": {
-          "version": "detect"
-      }
-  }
-}
