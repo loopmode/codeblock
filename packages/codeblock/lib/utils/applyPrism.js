@@ -33,7 +33,7 @@ function _applyPrism() {
   _applyPrism = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(element, options) {
-    var language, theme, isContainer, async, callback, isMounted, Prism, detectedLanguages, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, lang;
+    var language, theme, isContainer, async, callback, stillMounted, Prism, lang, detected, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -42,7 +42,7 @@ function _applyPrism() {
             //
             language = options.language, theme = options.theme, isContainer = options.isContainer, async = options.async, callback = options.callback;
 
-            isMounted = function isMounted() {
+            stillMounted = function stillMounted() {
               return !!element;
             };
 
@@ -52,107 +52,106 @@ function _applyPrism() {
           case 4:
             Prism = _context.sent;
 
-            if (!(isMounted() && theme)) {
-              _context.next = 9;
+            if (!(isContainer && stillMounted())) {
+              _context.next = 36;
               break;
             }
 
-            console.debug('[applyPrism] load theme', theme);
-            _context.next = 9;
-            return (0, _loadModule.default)('theme', theme);
-
-          case 9:
-            if (!(isMounted() && language)) {
-              _context.next = 13;
-              break;
-            }
-
-            console.debug('[applyPrism] load language', language);
-            _context.next = 13;
-            return (0, _loadModule.default)('language', language);
-
-          case 13:
-            if (!(isMounted() && isContainer)) {
-              _context.next = 43;
-              break;
-            }
-
-            detectedLanguages = (0, _getLanguages.default)(element);
-            console.debug('applyPrism', {
-              detectedLanguages: detectedLanguages
-            });
+            detected = (0, _getLanguages.default)(element);
             _iteratorNormalCompletion = true;
             _didIteratorError = false;
             _iteratorError = undefined;
-            _context.prev = 19;
-            _iterator = detectedLanguages[Symbol.iterator]();
+            _context.prev = 10;
+            _iterator = detected[Symbol.iterator]();
 
-          case 21:
+          case 12:
             if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-              _context.next = 29;
+              _context.next = 20;
               break;
             }
 
             lang = _step.value;
 
-            if (!(isMounted() && lang)) {
-              _context.next = 26;
+            if (!(lang && stillMounted())) {
+              _context.next = 17;
               break;
             }
 
-            _context.next = 26;
+            _context.next = 17;
             return (0, _loadModule.default)('language', lang);
 
-          case 26:
+          case 17:
             _iteratorNormalCompletion = true;
-            _context.next = 21;
+            _context.next = 12;
             break;
 
-          case 29:
-            _context.next = 35;
+          case 20:
+            _context.next = 26;
             break;
 
-          case 31:
-            _context.prev = 31;
-            _context.t0 = _context["catch"](19);
+          case 22:
+            _context.prev = 22;
+            _context.t0 = _context["catch"](10);
             _didIteratorError = true;
             _iteratorError = _context.t0;
 
-          case 35:
-            _context.prev = 35;
-            _context.prev = 36;
+          case 26:
+            _context.prev = 26;
+            _context.prev = 27;
 
             if (!_iteratorNormalCompletion && _iterator.return != null) {
               _iterator.return();
             }
 
-          case 38:
-            _context.prev = 38;
+          case 29:
+            _context.prev = 29;
 
             if (!_didIteratorError) {
-              _context.next = 41;
+              _context.next = 32;
               break;
             }
 
             throw _iteratorError;
 
-          case 41:
-            return _context.finish(38);
+          case 32:
+            return _context.finish(29);
+
+          case 33:
+            return _context.finish(26);
+
+          case 34:
+            _context.next = 39;
+            break;
+
+          case 36:
+            if (!(language && stillMounted())) {
+              _context.next = 39;
+              break;
+            }
+
+            _context.next = 39;
+            return (0, _loadModule.default)('language', language);
+
+          case 39:
+            if (!(theme && stillMounted())) {
+              _context.next = 42;
+              break;
+            }
+
+            _context.next = 42;
+            return (0, _loadModule.default)('theme', theme);
 
           case 42:
-            return _context.finish(35);
-
-          case 43:
-            if (isMounted()) {
+            if (stillMounted()) {
               isContainer ? Prism.highlightAllUnder(element, async, callback) : Prism.highlightElement(element, async, callback);
             }
 
-          case 44:
+          case 43:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[19, 31, 35, 43], [36,, 38, 42]]);
+    }, _callee, null, [[10, 22, 26, 34], [27,, 29, 33]]);
   }));
   return _applyPrism.apply(this, arguments);
 }

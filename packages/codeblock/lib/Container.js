@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Code;
+exports.default = Container;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -13,9 +13,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function Code(props) {
+function Container(props) {
   return _react.default.createElement(_Codeblock.default, _extends({}, props, {
-    as: "code"
+    isContainer: true
   }));
 }
-//# sourceMappingURL=Code.js.map
+//# sourceMappingURL=Container.js.map

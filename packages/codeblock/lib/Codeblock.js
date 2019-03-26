@@ -11,15 +11,13 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
 var _languages = _interopRequireDefault(require("./languages"));
 
 var _themes = _interopRequireDefault(require("./themes"));
 
 var _usePrism = _interopRequireDefault(require("./hooks/usePrism"));
 
-var _useExternalContent = _interopRequireDefault(require("./hooks/useExternalContent"));
+var _useContent = _interopRequireDefault(require("./hooks/useContent"));
 
 var _fetchExternal = _interopRequireDefault(require("./utils/fetchExternal"));
 
@@ -33,75 +31,51 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n    &[class*='language-'] {\n        &.inline {\n            display: inline;\n            padding: 2px 3px;\n            margin-right: 5px;\n        }\n    }\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var Container = _styledComponents.default.div(_templateObject());
-
 Codeblock.propTypes = {
   children: _propTypes.default.node,
   className: _propTypes.default.string,
   loadExternal: _propTypes.default.func,
   language: _propTypes.default.oneOf(Object.keys(_languages.default)),
   theme: _propTypes.default.oneOf(Object.keys(_themes.default)),
-  component: _propTypes.default.string,
-  innerComponent: _propTypes.default.string,
+  as: _propTypes.default.string,
   src: _propTypes.default.string,
   callback: _propTypes.default.func,
   async: _propTypes.default.bool,
-  inline: _propTypes.default.bool,
   isContainer: _propTypes.default.bool
 };
+Codeblock.defaultProps = {
+  as: 'pre',
+  language: 'javascript',
+  theme: 'okaidia',
+  loadExternal: _fetchExternal.default
+};
 
-function Codeblock(_ref) {
-  var children = _ref.children,
-      className = _ref.className,
-      src = _ref.src,
-      _ref$loadExternal = _ref.loadExternal,
-      loadExternal = _ref$loadExternal === void 0 ? _fetchExternal.default : _ref$loadExternal,
-      _ref$language = _ref.language,
-      language = _ref$language === void 0 ? 'javascript' : _ref$language,
-      _ref$theme = _ref.theme,
-      theme = _ref$theme === void 0 ? 'okaidia' : _ref$theme,
-      _ref$component = _ref.component,
-      component = _ref$component === void 0 ? 'pre' : _ref$component,
-      isContainer = _ref.isContainer,
-      callback = _ref.callback,
-      async = _ref.async,
-      inline = _ref.inline,
-      props = _objectWithoutProperties(_ref, ["children", "className", "src", "loadExternal", "language", "theme", "component", "isContainer", "callback", "async", "inline"]);
+function Codeblock(props) {
+  var Renderer = props.as,
+      language = props.language,
+      theme = props.theme,
+      src = props.src,
+      isContainer = props.isContainer,
+      loadExternal = props.loadExternal,
+      callback = props.callback,
+      children = props.children,
+      async = props.async,
+      otherProps = _objectWithoutProperties(props, ["as", "language", "theme", "src", "isContainer", "loadExternal", "callback", "children", "async"]);
 
-  var ref = _react.default.useRef(null);
+  var element = _react.default.useRef(null);
 
-  (0, _usePrism.default)(ref, {
+  var content = (0, _useContent.default)(children, src, loadExternal);
+  var className = (0, _classnames.default)('Codeblock', _defineProperty({}, "language-".concat(language), language && !isContainer), props.className);
+  (0, _usePrism.default)(element, {
     language: language,
     theme: theme,
     callback: callback,
     async: async,
     isContainer: isContainer
   });
-  var content = children;
-
-  if (src) {
-    content = (0, _useExternalContent.default)(src, loadExternal);
-  }
-
-  var cssClasses = (0, _classnames.default)('Codeblock', className, {
-    inline: inline
-  }, _defineProperty({}, "language-".concat(language), language));
-  return _react.default.createElement(Container, _extends({}, props, {
-    className: cssClasses,
-    as: component,
-    ref: ref
+  return _react.default.createElement(Renderer, _extends({}, otherProps, {
+    ref: element,
+    className: className
   }), content);
 }
 //# sourceMappingURL=Codeblock.js.map

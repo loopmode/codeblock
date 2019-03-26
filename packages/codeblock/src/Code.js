@@ -1,4 +1,6 @@
 import React from 'react';
 import Codeblock from './Codeblock';
 
-export default props => <Codeblock {...props} inline />;
+export default function Code(props) {
+    return <Codeblock {...props} as="code" />;
+}

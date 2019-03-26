@@ -40,45 +40,40 @@ function _loadModule() {
         switch (_context.prev = _context.next) {
           case 0:
             loader = loaders[type] && loaders[type][name];
-            console.debug('loadModule', {
-              type: type,
-              name: name,
-              loader: loader
-            });
 
             if (!(typeof loader === 'function')) {
-              _context.next = 13;
+              _context.next = 12;
               break;
             }
 
-            _context.prev = 3;
-            _context.next = 6;
+            _context.prev = 2;
+            _context.next = 5;
             return loader();
 
-          case 6:
-            _context.next = 11;
+          case 5:
+            _context.next = 10;
             break;
 
-          case 8:
-            _context.prev = 8;
-            _context.t0 = _context["catch"](3);
-            console.error("[loadModule] error loading ".concat(type, " \"").concat(name, "\""), _context.t0);
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context["catch"](2);
+            console.warn("[codeblock] loadModule failed", type, name);
 
-          case 11:
-            _context.next = 14;
+          case 10:
+            _context.next = 13;
             break;
 
-          case 13:
-            console.warn("Unsupported ".concat(type, " \"").concat(name, "\""), {
+          case 12:
+            console.warn("[codeblock] Unsupported ".concat(type, " \"").concat(name, "\""), {
               supported: Object.keys(loaders[type])
             });
 
-          case 14:
+          case 13:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[3, 8]]);
+    }, _callee, null, [[2, 7]]);
   }));
   return _loadModule.apply(this, arguments);
 }

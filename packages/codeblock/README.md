@@ -1,14 +1,9 @@
 # @loopmode/codeblock
 
-A react component for code highlighting - based on [prismjs](https://prismjs.com)
+A react component for code highlighting - based on [prismjs](https://prismjs.com) and prepared for code-splitting.
 
-## Motivation
-
-This is a simple wrapper around `prismjs`. Some of its main goals:
-
-- Make it easy to display code with syntax highlighting in react projects
-- Support all themes and languages provided by `prismjs`, but without bloating the final bundle with unused ones
-- Support for URL-based content, e.g. display code directly from github without manual loading
+- _Note: Requires react version 16.8.0 or newer (hooks)_
+- _Note: Requires support for dynamic `import()` statements (e.g. create-react-app/webpack/parcel)_
 
 ## Installation
 
@@ -18,23 +13,23 @@ yarn add @loopmode/codeblock
 npm install --save @loopmode/codeblock
 ```
 
-## Prerequisites
-
-- You need react v16.8.0 or newer - we're using hooks under he hood
-- You need support for dynamic `import()` syntax - we only load what's needed from `prismjs`, dynamically
-
-If you want to use the URL-based loader via `src` prop in older browsers, you should either provide a `window.fetch` polyfill or your own `loadExternal` function that doesn't require `window.fetch`.
-
-_Note: In case your project is based on a recent version of `create-react-app`, you're good to go!_
-
-
 ## Usage
+
+The default prism theme is `okaidia`, the default language is `javascript`.
+Use the `theme` and `language` props to override.
+
+Currently, you have to decide on a single theme because the global prism stylesheets interfere with each other.
+See [local themed component](#local-themed-component) for how to specify a theme.
+
+### Displaying inline content
+
+You can use the component much like you would use the `<pre>` tag. Pass the contents as regular react children.
 
 ```jsx
 import React from 'react';
 import Codeblock from '@loopmode/codeblock'
 
-export default function CodeblockExamples() {
+export default function InlineContent() {
     return (
         <Codeblock>{`
             class Foo {
@@ -49,25 +44,47 @@ export default function CodeblockExamples() {
 }
 ```
 
-### Some more examples
+### Loading external content
+
+If you specify `src`, the text will be loaded from that URL and then displayed. If the component is unmounted while it's still loading, the request is aborted.
 
 ```jsx
 import React from 'react';
-import Codeblock, { Code } from '@loopmode/codeblock'
+import Codeblock from '@loopmode/codeblock'
 
-export const Examples = () => (
-    <>
-        {/* load external content via src prop */}
-        <Codeblock src="http://my-website.com/my-file.js" />
-
-        {/* specify language and/or theme props */}
-        <Codeblock language="python" theme="twilight">
-            {'import base64, sys; base64.decode(open(sys.argv[1], "rb"), open(sys.argv[2], "wb"))'}
-        </Codeblock>
-
-        {/* inline styling */}
-        <p>We can use inline code: <Codeblock inline>const foo = 'foo'</Codeblock><p>
-        <p>Alternatively, use the Code component: <Code>const foo = 'foo'</Code><p>
-    </>
-)
+export default function ExternalContent() {
+    return (
+        <Codeblock src="https://raw.githubusercontent.com/loopmode/codeblock/master/packages/codeblock/src/Codeblock.js" />
+    );
+}
 ```
+
+If you need to support older browsers, make sure to provide a `fetch` polyfill, or provide a custom `loadExternal` function that does not depend on `fetch` (e.g using axios, superagent etc).
+
+### Local themed component
+
+Currently, each prism theme stylesheet is loaded globally. When you load a second theme, the first one is still loaded and the stylesheets interfere. For this reason, you decide for one theme and stick with it.
+
+In that case, you should create a local component that sets the `theme` prop and use that component across your project.
+
+Example `components/Codeblock`:
+
+```jsx
+import React from 'react';
+import Codeblock from '@loopmode/codeblock'
+
+export default function ThemedCodeblock(props) {
+    return (
+        <Codeblock {...props} theme="twilight" />
+    );
+}
+```
+
+
+
+## Code splitting
+
+All default prismjs themes and [languages](https://prismjs.com/#supported-languages) are supported and loaded with dynamic `import()` statements that use `/* webpackChunkName */` comments.
+When you build your app for production, your final bundle will contain an additional codeblock folder with the theme and language files (`codeblock/theme.*.js` and `codeblock/language.*.js`).
+
+

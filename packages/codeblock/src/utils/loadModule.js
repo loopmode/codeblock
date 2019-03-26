@@ -15,19 +15,14 @@ const loaders = {
 export default async function loadModule(type, name) {
     const loader = loaders[type] && loaders[type][name];
 
-    console.debug('loadModule', { type, name, loader });
-
     if (typeof loader === 'function') {
         try {
             await loader();
         } catch (error) {
-            console.error(
-                `[loadModule] error loading ${type} "${name}"`,
-                error
-            );
+            console.warn(`[codeblock] loadModule failed`, type, name);
         }
     } else {
-        console.warn(`Unsupported ${type} "${name}"`, {
+        console.warn(`[codeblock] Unsupported ${type} "${name}"`, {
             supported: Object.keys(loaders[type])
         });
     }

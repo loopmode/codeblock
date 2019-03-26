@@ -9,7 +9,7 @@ export default function useExternalContent(url, loadExternal) {
                 if (!error) {
                     setContent(result);
                 } else if (error.name !== 'AbortError') {
-                    console.warn('request failed', url);
+                    console.warn('[codeblock] useExternalContent failed', url);
                 }
             }),
         [url]
