@@ -63,9 +63,9 @@ If you need to support older browsers, make sure to provide a `fetch` polyfill, 
 
 ### Local themed component
 
-Currently, each prism theme stylesheet is loaded globally. When you load a second theme, the first one is still loaded and the stylesheets interfere. For this reason, you decide for one theme and stick with it.
+Currently, each prism theme stylesheet is loaded globally. When you load a second theme, the first one is still loaded and the styles interfere. For this reason, you should decide for one theme and stick with it.
 
-In that case, you should create a local component that sets the `theme` prop and use that component across your project.
+While you could just set the `theme` prop manually over and over, you should create a local component that sets the `theme` prop once and then import one across your codebase.
 
 Example `components/Codeblock`:
 
@@ -81,10 +81,9 @@ export default function ThemedCodeblock(props) {
 ```
 
 
-
 ## Code splitting
 
 All default prismjs themes and [languages](https://prismjs.com/#supported-languages) are supported and loaded with dynamic `import()` statements that use `/* webpackChunkName */` comments.
 When you build your app for production, your final bundle will contain an additional codeblock folder with the theme and language files (`codeblock/theme.*.js` and `codeblock/language.*.js`).
 
-
+However, only the required ones will be loaded at runtime.
