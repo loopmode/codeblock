@@ -54,8 +54,6 @@ export default function ExternalContent() {
 }
 ```
 
-If you need to support older browsers, make sure to provide a `fetch` polyfill, or provide a custom `loadExternal` function that does not depend on `fetch` (e.g using axios, superagent etc).
-
 ### Local themed component
 
 Currently, each prism theme stylesheet is loaded globally. When you load a second theme, the first one is still loaded and the styles interfere. For this reason, you should decide for one theme and stick with it.
@@ -82,3 +80,34 @@ All default prismjs themes and [languages](https://prismjs.com/#supported-langua
 When you build your app for production, your final bundle will contain an additional codeblock folder with the theme and language files (`codeblock/theme.*.js` and `codeblock/language.*.js`).
 
 However, only the required ones will be loaded at runtime.
+
+
+### window.fetch and custom loader
+
+Auto-loading content via `src` uses `window.fetch()` by default.
+If you need to support older browsers, you can either provide a fetch polyfill or a custom `loader` function.
+
+A custom `loader` function is pretty easy to create:
+
+```javascript
+const loader = (url, callback) => {
+    axios.get(url)
+        .then(response => callback(response.data));
+}
+```
+
+- The signature is `(url: String, callback: Function): Function`
+- Invoke the callback with the result string once you have it
+- Optionally return a function
+
+The loader may return a function to cancel pending requests when the requesting component gets unmounted.
+For example, using axios, it would be something like [this](https://github.com/axios/axios#cancellation):
+
+```javascript
+const loader = (url, callback) => {
+    const {token: cancelToken, cancel} = axios.CancelToken.source();
+    axios.get(url, {cancelToken})
+        .then(response => callback(response.data));
+    return cancel
+}
+```
