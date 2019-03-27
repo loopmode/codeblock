@@ -10,7 +10,7 @@ module.exports = {
         'prettier/prettier': [
             'warn',
             {
-                ...JSON.parse(fs.readFileSync('./.prettierrc'))
+                ...JSON.parse(fs.readFileSync(`${__dirname}/.prettierrc`))
             }
         ]
     }

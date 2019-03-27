@@ -9,34 +9,31 @@ import InlinePage from './pages/inline';
 import ExternalPage from './pages/external';
 import ThemesPage from './pages/themes';
 
-function Header() {
-    return (
-        <ul>
-            <li>
-                <Link to="/">Home</Link>
-            </li>
-            <li>
-                <Link to="/inline">inline</Link>
-            </li>
-            <li>
-                <Link to="/external">external</Link>
-            </li>
-            <li>
-                <Link to="/hook">usePrism hook</Link>
-            </li>
-            <li>
-                <Link to="/themes">Themes</Link>
-            </li>
-        </ul>
-    );
-}
-
 class App extends Component {
     render() {
         return (
             <Router>
                 <div className="App">
-                    <Header />
+                    <h1>@loopmode/codeblock examples</h1>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link to="/inline">inline</Link>
+                            </li>
+                            <li>
+                                <Link to="/external">external</Link>
+                            </li>
+                            <li>
+                                <Link to="/hook">usePrism hook</Link>
+                            </li>
+                            <li>
+                                <Link to="/themes">Themes</Link>
+                            </li>
+                        </ul>
+                    </nav>
                     <Route path="/hook" component={HookPage} />
                     <Route path="/external" component={ExternalPage} />
                     <Route path="/inline" component={InlinePage} />

@@ -1,7 +1,7 @@
 {
     "name": "@loopmode/codeblock",
     "description": "React component to highlight code using prismjs",
-    "version": "0.9.3",
+    "version": "1.0.0",
     "main": "lib/index.js",
     "license": "MIT",
     "author": "Jovica Aleksic <jovica.aleksic@loopmode.de>",
@@ -13,9 +13,11 @@
     "scripts": {
         "clean": "rm -rf ./lib/*",
         "build": "babel src --out-dir ./lib --source-maps",
+        "watch": "yarn build --watch",
         "lint": "eslint ./src"
     },
     "dependencies": {
+        "@loopmode/use-content": "^1.1.1",
         "classnames": "^2.2.6",
         "prismjs": "^1.15.0",
         "styled-components": "^4.2.0"

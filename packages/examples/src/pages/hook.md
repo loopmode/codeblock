@@ -1,8 +1,6 @@
 # The `usePrism` hook
 
-The next example is the actual code of the{' '}
-[https://www.npmjs.com/package/@loopmode/markdown](@loopmode/markdown)
-package.
+The next example is the actual code of the [https://www.npmjs.com/package/@loopmode/markdown](@loopmode/markdown) package.
 
 It uses the `usePrism` hook instead of the `<Codeblock />` component to apply highlighting to any
 code blocks in rendered markdown, using the `isContainer` flag.

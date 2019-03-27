@@ -31,22 +31,14 @@ import Codeblock from '@loopmode/codeblock'
 
 export default function InlineContent() {
     return (
-        <Codeblock>{`
-            class Foo {
-                constructor(value) {
-                    this.value = value;
-                }
-            }
-            const a = new Foo('a');
-            const b = new Foo('b');
-        `}</Codeblock>
+        <Codeblock>{`class Foo { /* Yay! Code! */ }`}</Codeblock>
     );
 }
 ```
 
 ### Loading external content
 
-If you specify `src`, the text will be loaded from that URL and then displayed. If the component is unmounted while it's still loading, the request is aborted.
+If you specify `src`, the content will be loaded from that URL and the `children` prop is ignored.
 
 ```jsx
 import React from 'react';
@@ -54,7 +46,10 @@ import Codeblock from '@loopmode/codeblock'
 
 export default function ExternalContent() {
     return (
-        <Codeblock src="https://raw.githubusercontent.com/loopmode/codeblock/master/packages/codeblock/src/Codeblock.js" />
+        <Codeblock
+            children="Nope. Ignored."
+            src="https://raw.githubusercontent.com/loopmode/codeblock/master/packages/codeblock/src/Codeblock.js"
+        />
     );
 }
 ```
@@ -65,7 +60,7 @@ If you need to support older browsers, make sure to provide a `fetch` polyfill, 
 
 Currently, each prism theme stylesheet is loaded globally. When you load a second theme, the first one is still loaded and the styles interfere. For this reason, you should decide for one theme and stick with it.
 
-While you could just set the `theme` prop manually over and over, you should create a local component that sets the `theme` prop once and then import one across your codebase.
+While you could just set the `theme` prop manually over and over, you should create a local component that sets the `theme` prop once and import that one across your codebase.
 
 Example `components/Codeblock`:
 
