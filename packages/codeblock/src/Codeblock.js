@@ -38,8 +38,8 @@ Codeblock.propTypes = {
 
 Codeblock.defaultProps = {
     language: 'javascript',
-    theme: 'okaidia',
     as: 'pre',
+    theme: 'prism',
     loadExternal: undefined,
     src: undefined,
     callback: undefined,

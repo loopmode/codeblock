@@ -11,11 +11,7 @@ export default function HookPage() {
             <Codeblock
                 src="https://raw.githubusercontent.com/loopmode/markdown/master/packages/markdown/src/Markdown.js"
                 language="jsx"
-                prepend={[
-                    Codeblock.extras.src,
-                    Codeblock.extras.language,
-                    Codeblock.extras.theme
-                ]}
+                prepend={Codeblock.extras.src}
                 append={Codeblock.extras.report}
             />
         </div>
