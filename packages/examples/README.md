@@ -4,38 +4,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-```jsx
-import React from "react";
-import PropTypes from "prop-types";
-import Remarkable from "react-remarkable";
-import usePrism from "@loopmode/codeblock/lib/hooks/usePrism";
-
-import css from "./Markdown.scss";
-import cx from "classnames";
-
-const Markdown = ({ className, ...props }) => {
-  const ref = React.useRef(null);
-  console.log(">>", ref);
-  window.ref = ref;
-  usePrism(ref, {
-    theme: "okayida",
-    language: "jsx",
-    isContainer: true
-  });
-  return (
-    <div className={cx("Markdown", css.Markdown, className)} ref={ref}>
-      <Remarkable {...props} />
-    </div>
-  );
-};
-
-Markdown.propTypes = {
-  className: PropTypes.string
-};
-
-export default Markdown;
-```
-
 ### `npm start`
 
 Runs the app in the development mode.<br>
@@ -46,35 +14,35 @@ You will also see any lint errors in the console.
 
 ```scss
 :local(.Markdown) {
-  padding: 20px;
-  margin-bottom: 50px;
-  img {
-    background: #eee;
-  }
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-  table td,
-  table th {
-    padding: 5px;
-    border-bottom: 1px solid #eee;
-  }
-  table thead th {
-    border-bottom: 1px solid #ccc;
-  }
+    padding: 20px;
+    margin-bottom: 50px;
+    img {
+        background: #eee;
+    }
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    table td,
+    table th {
+        padding: 5px;
+        border-bottom: 1px solid #eee;
+    }
+    table thead th {
+        border-bottom: 1px solid #ccc;
+    }
 
-  h2:not(:first-child),
-  h3:not(:first-child) {
-    margin-top: 40px;
-  }
+    h2:not(:first-child),
+    h3:not(:first-child) {
+        margin-top: 40px;
+    }
 
-  td:first-child > em:first-child:last-child {
-    color: #999;
-    margin-top: 10px;
-    display: block;
-  }
+    td:first-child > em:first-child:last-child {
+        color: #999;
+        margin-top: 10px;
+        display: block;
+    }
 }
 ```
 
